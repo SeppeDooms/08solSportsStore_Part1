@@ -15,8 +15,14 @@ namespace SportsStore.Controllers {
             _categoryRepository = categoryRepository;
         }
 
-        public IActionResult Index() {
-            IEnumerable<Product> products = _productRepository.GetAll().OrderBy(b => b.Name).ToList();
+        public IActionResult Index(int categoryId = 0) {
+            IEnumerable<Product> products;
+            if (categoryId == 0)
+                products = _productRepository.GetAll();
+            else
+                products = _categoryRepository.GetByIdIncludingProducts(categoryId).Products;
+            products = products.OrderBy(b => b.Name).ToList();
+            ViewData["Categories"] = GetCategoriesSelectList(categoryId);
             return View(products);
         }
 
