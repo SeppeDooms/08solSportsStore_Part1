@@ -1,7 +1,7 @@
 ﻿@model SportsStore.Models.ProductViewModels.EditViewModel
 
 @{
-    ViewData["Title"] = "Edit Product";
+    ViewData["Title"] = (bool)ViewData["IsEdit"] ? "Edit Product" : "Create Product";
 }
 
 <h2>@ViewData["Title"]</h2>
