@@ -13,6 +13,7 @@
         <th>Description</th>
         <th class="text-right">Price</th>
         <th class="text-center">In Stock</th>
+        <th>Availability</th>
         <th></th>
     </tr>
     @foreach (var item in Model)
@@ -29,6 +30,9 @@
             </td>
             <td class="text-center">
                 <input type="checkbox" @(item.InStock ? "checked" : "") />
+            </td>
+            <td>
+                @item.Availability
             </td>
             <td>
                 <a asp-controller="Product" asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |

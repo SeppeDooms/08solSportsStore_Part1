@@ -7,6 +7,7 @@ namespace SportsStore.Models.ProductViewModels {
         public decimal Price { get; set; }
         public bool InStock { get; set; }
         public int CategoryId { get; set; }
+        public Availability Availability { get; set; }
 
         public EditViewModel() {
             InStock = true;
@@ -18,6 +19,7 @@ namespace SportsStore.Models.ProductViewModels {
             Price = product.Price;
             InStock = product.InStock;
             CategoryId = product.Category?.CategoryId ?? 0;
+            Availability = product.Availability;
         }
     }
 }

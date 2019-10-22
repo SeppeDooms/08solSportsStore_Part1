@@ -32,7 +32,7 @@ namespace SportsStore.Controllers {
         [HttpPost]
         public IActionResult Edit(int id, EditViewModel editViewModel) {
             Product product = _productRepository.GetById(id);
-            product.EditProduct(editViewModel.Name, editViewModel.Description, editViewModel.Price, editViewModel.InStock, _categoryRepository.GetById(editViewModel.CategoryId));
+            product.EditProduct(editViewModel.Name, editViewModel.Description, editViewModel.Price, editViewModel.InStock, _categoryRepository.GetById(editViewModel.CategoryId), editViewModel.Availability);
             _productRepository.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
@@ -45,7 +45,7 @@ namespace SportsStore.Controllers {
 
         [HttpPost]
         public IActionResult Create(EditViewModel editViewModel) {
-            var product = new Product(editViewModel.Name, editViewModel.Price, _categoryRepository.GetById(editViewModel.CategoryId), editViewModel.Description, editViewModel.InStock);
+            var product = new Product(editViewModel.Name, editViewModel.Price, _categoryRepository.GetById(editViewModel.CategoryId), editViewModel.Description, editViewModel.InStock, editViewModel.Availability);
             _productRepository.Add(product);
             _productRepository.SaveChanges();
             return RedirectToAction(nameof(Index));

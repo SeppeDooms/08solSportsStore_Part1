@@ -41,16 +41,18 @@ namespace SportsStore.Models.Domain {
         }
 
         public string Description { get; private set; }
+        public Availability Availability { get; private set; }
         public bool InStock { get; private set; }
 
         #endregion
 
         #region Constructors
-        public Product(string name, decimal price, Category category, string description = null, bool inStock = true) {
+        public Product(string name, decimal price, Category category, string description = null, bool inStock = true, Availability availability = Availability.ShopAndOnline) {
             InStock = inStock;
             Name = name;
             Price = price;
             Description = description;
+            Availability = availability;
             Category = category;
             category.AddProduct(this);
         }
@@ -61,11 +63,12 @@ namespace SportsStore.Models.Domain {
         #endregion
 
         #region Methods
-        public void EditProduct(string name, string description, decimal price, bool inStock, Category category) {
+        public void EditProduct(string name, string description, decimal price, bool inStock, Category category, Availability availability) {
             Name = name;
             Description = description;
             Price = price;
             InStock = inStock;
+            Availability = availability;
             Category.RemoveProduct(this);
             Category = category;
             Category.AddProduct(this);

@@ -60,18 +60,19 @@ namespace SportsStore.Tests.Models {
         public void EditProduct_ValidEdit_ChangesTheProduct() {
             var product = new Product("Football", 10, _category);
             var category = new Category("NewCategory");
-            product.EditProduct("NewName", "NewDescription", 20, false, category);
+            product.EditProduct("NewName", "NewDescription", 20, false, category, Availability.ShopAndOnline);
             Assert.Equal("NewName", product.Name);
             Assert.Equal(20, product.Price);
             Assert.Equal(category, product.Category);
             Assert.Equal("NewDescription", product.Description);
+            Assert.Equal(Availability.ShopAndOnline, product.Availability);
             Assert.False(product.InStock);
         }
 
         [Fact]
         public void EditProduct_InValidEdit_ThrowsArgumentException() {
             var product = new Product("Football", 10, _category);
-            Assert.Throws<ArgumentException>(() => product.EditProduct("NewName", "NewDescription", 20, false, null));
+            Assert.Throws<ArgumentException>(() => product.EditProduct("NewName", "NewDescription", 20, false, null, Availability.ShopAndOnline)) ;
         }
         #endregion
     }
