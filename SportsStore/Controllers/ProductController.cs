@@ -51,6 +51,22 @@ namespace SportsStore.Controllers {
             return RedirectToAction(nameof(Index));
         }
 
+        public IActionResult Delete(int id) {
+            Product product = _productRepository.GetById(id);
+            if (product == null)
+                return NotFound();
+            ViewData["ProductName"] = product.Name;
+            return View();
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeleteConfirmed(int id) {
+            Product product = _productRepository.GetById(id);
+            _productRepository.Delete(product);
+            _productRepository.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
         private SelectList GetCategoriesSelectList(int selected = 0) {
             return new SelectList(_categoryRepository.GetAll().OrderBy(g => g.Name).ToList(),
                 nameof(Category.CategoryId), nameof(Category.Name), selected);
