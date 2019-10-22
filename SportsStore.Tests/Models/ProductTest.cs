@@ -8,7 +8,7 @@ namespace SportsStore.Tests.Models {
 
         public ProductTest() {
             _category = new Category("Soccer");
-         }
+        }
 
         #region Constructor
         [Fact]
@@ -55,5 +55,24 @@ namespace SportsStore.Tests.Models {
 
         #endregion
 
+        #region Methods
+        [Fact]
+        public void EditProduct_ValidEdit_ChangesTheProduct() {
+            var product = new Product("Football", 10, _category);
+            var category = new Category("NewCategory");
+            product.EditProduct("NewName", "NewDescription", 20, false, category);
+            Assert.Equal("NewName", product.Name);
+            Assert.Equal(20, product.Price);
+            Assert.Equal(category, product.Category);
+            Assert.Equal("NewDescription", product.Description);
+            Assert.False(product.InStock);
+        }
+
+        [Fact]
+        public void EditProduct_InValidEdit_ThrowsArgumentException() {
+            var product = new Product("Football", 10, _category);
+            Assert.Throws<ArgumentException>(() => product.EditProduct("NewName", "NewDescription", 20, false, null));
+        }
+        #endregion
     }
 }

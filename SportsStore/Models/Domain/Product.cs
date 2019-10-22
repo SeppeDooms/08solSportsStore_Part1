@@ -61,6 +61,16 @@ namespace SportsStore.Models.Domain {
         #endregion
 
         #region Methods
+        public void EditProduct(string name, string description, decimal price, bool inStock, Category category) {
+            Name = name;
+            Description = description;
+            Price = price;
+            InStock = inStock;
+            Category.RemoveProduct(this);
+            Category = category;
+            Category.AddProduct(this);
+        }
+
         public override bool Equals(object obj) {
             return obj is Product p && p.ProductId == ProductId;
         }
