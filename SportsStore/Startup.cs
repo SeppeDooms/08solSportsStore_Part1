@@ -10,7 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SportsStore.Data;
-
+using SportsStore.Models.Domain;
+using SportsStore.Data.Repositories;
 
 namespace SportsStore {
     public class Startup {
@@ -25,6 +26,7 @@ namespace SportsStore {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<SportsStoreDataInitializer>();
+            services.AddScoped<IProductRepository, ProductRepository>();
             services.AddControllersWithViews();
         }
 
@@ -51,7 +53,7 @@ namespace SportsStore {
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Product}/{action=Index}/{id?}");
             });
 
             sportsStoreDataInitializer.InitializeData();
